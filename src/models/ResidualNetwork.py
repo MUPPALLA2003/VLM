@@ -4,15 +4,14 @@ from LayerNormalization import LayerNormalization
 
 class ResidualNetwork(nn.Module):
 
-    def _init_(self,d_model:int,dropout:float):
+    def _init_(self,embed_dim:int,residual_dropout:float):
 
         super()._init_()
         
-        self.n_embd = d_model
-        self.dropout = nn.Dropout(dropout)
-        self.layernorm = LayerNormalization(d_model)
+        self.residual_dropout = nn.Dropout(residual_dropout)
+        self.layernorm = LayerNormalization(embed_dim)
 
 
     def forward(self,x:torch.Tensor,sublayer) -> torch.Tensor:
 
-        return x + self.dropout(sublayer(LayerNormalization(x)))
+        return x + self.residual_dropout(sublayer(LayerNormalization(x)))

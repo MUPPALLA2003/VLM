@@ -3,13 +3,13 @@ import torch.nn as nn
 
 class LayerNormalization(nn.Module):
 
-    def __init__(self,d_model:int,eps:float=1e-5,device:torch.device | None = None):
+    def __init__(self,embed_dim:int,eps:float=1e-5,device:torch.device | None = None):
 
         super().__init__()
-        self.n_dim = d_model
+        self.embed_dim = embed_dim
         self.eps = eps
-        self.gamma = nn.Parameter(torch.ones(d_model, device = device, dtype = torch.float32))
-        self.beta = nn.Parameter(torch.zeros(d_model, device = device, dtype = torch.float32))
+        self.gamma = nn.Parameter(torch.ones(embed_dim, device = device, dtype = torch.float32))
+        self.beta = nn.Parameter(torch.zeros(embed_dim, device = device, dtype = torch.float32))
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
 
