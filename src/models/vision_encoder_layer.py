@@ -6,7 +6,7 @@ from .LayerNormalization import LayerNormalization
 
 class VisionEncoderLayer(nn.Module):
 
-    def __init__(self,embed_dim:int,n_heads:int,mlp_ratio,qkv_bias:bool = True,attn_p:float = 0.0,proj_p:float = 0.0,flash_attn:bool = True,mlp_p:float = 0.0,drop_path:float=0.0) -> None:
+    def __init__(self,embed_dim:int,n_heads:int,mlp_ratio:float,qkv_bias:bool = True,attn_p:float = 0.0,proj_p:float = 0.0,flash_attn:bool = True,mlp_p:float = 0.0,drop_path:float=0.0) -> None:
 
         super().__init__()
 
