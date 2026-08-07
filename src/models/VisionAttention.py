@@ -24,7 +24,7 @@ class VisionAttention(nn.Module):
         self.proj_drop = nn.Dropout(proj_p)
         self.flash_attn = flash_attn
 
-    def attention(self,q,k,v):
+    def attention(self,q:torch.Tensor,k:torch.Tensor,v:torch.Tensor) -> torch.Tensor:
 
         if self.flash_attn:
 

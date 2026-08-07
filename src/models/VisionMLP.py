@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-class MLP(nn.Module):
+class VisionMLP(nn.Module):
 
     def __init__(self,in_features:int,mlp_ratio,mlp_p:float = 0.0) -> None:
 
