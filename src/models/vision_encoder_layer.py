@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
-from .VisionAttention import VisionAttention
-from .VisionMLP import VisionMLP
-from .LayerNormalization import LayerNormalization
+from .vision_attention import VisionAttention
+from .vision_mlp import VisionMLP
+from .layer_normalization import LayerNormalization
 
 class VisionEncoderLayer(nn.Module):
 
