@@ -100,7 +100,7 @@ class Attention(nn.Module):
 
             assert (start_pos + seq_len <= self.max_seq_len), "KV cache exceeded max_seq_len"
  
-            start_pos = kv_cache.seq_len[layer_idx]
+            start_pos = kv_cache.index[layer_idx]
             cos = self.cos_cache[start_pos : start_pos + seq_len]
             sin = self.sin_cache[start_pos : start_pos + seq_len]
             q = apply_rope(query,cos,sin)
@@ -113,9 +113,18 @@ class Attention(nn.Module):
             offset = s_kv - s_q
 
             mask = (torch.arange(s_kv,device=x.device)[None,:] > torch.arange(s_q, device=x.device)[:, None] + offset)
-            
-            output = self._attention(q,k,v,mask)
+
+            if self.flash_attn:
+
+                output = F.scaled_dot_product_attention(q,k,v,
+                                                        attn_mask = mask,
+                                                        dropout_p = self.attn_drop.p if self.training else 0.0,
+                                                        is_causal = False)
+
+            else:
+
+                output = self._attention(q,k,v,mask)
  
-        output = output.transpose(1, 2).contiguous().view(batch_size,seq_len,self.embed_dim)
+        output = output.transpose(1,2).contiguous().view(batch_size,seq_len,self.embed_dim)
 
         return self.wo(output)
