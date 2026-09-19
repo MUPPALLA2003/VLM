@@ -6,7 +6,7 @@ from .gated_mlp import  GatedMLP
 from .rms_norm import RMSNormalization
 from .kv_cache import KVCache
 
-class TextEncoder(nn.Module):
+class TextDecoder(nn.Module):
 
     def __init__(self,intermediate_dim:int,embed_dim:int,max_seq_len:int,num_heads:int,n_kv_heads:Optional[int] = None,attn_p:float=0.0,attn_bias:bool = False,mlp_bias:bool = False,rope_base:float = 500000.0,flash_attn:bool = True) -> None:
 

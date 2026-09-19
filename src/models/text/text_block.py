@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from typing import Optional
 from .kv_cache import KVCache
-from .encoder import TextEncoder
+from .decoder import TextDecoder
 from .text_embeddings import TextEmbeddings
 from .rms_norm import RMSNormalization
 
@@ -27,7 +27,7 @@ class TextBlock(nn.Module):
 
         self.input_embed = TextEmbeddings(vocab_size,embed_dim)
 
-        self.layers = nn.ModuleList([TextEncoder(
+        self.layers = nn.ModuleList([TextDecoder(
             intermediate_dim,
             embed_dim,
             max_seq_len,
